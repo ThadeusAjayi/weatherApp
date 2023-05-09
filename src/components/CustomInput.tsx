@@ -11,6 +11,7 @@ import globalstyles from '../styles/globalstyles';
 import colors from '../assets/colors';
 import useValidation, {Validation} from '../hooks/useValidation';
 import CustomText from './CustomText';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   style?: StyleProp<TextStyle>;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {validateEmail, validatePassword} from '../utils/validators';
+import {useTranslation} from 'react-i18next';
 
 interface Validate {
   errorMessage: string;
@@ -13,21 +14,23 @@ export default function (
   validation: 'email' | 'password' | 'invalid' | undefined,
 ): Validate {
   const [errorMessage, setErrorMessage] = useState('');
+  const {t} = useTranslation();
+
   React.useEffect(() => {
     if (validation === 'email') {
       if (!validateEmail(value)) {
-        setErrorMessage('Enter a valid email');
+        setErrorMessage(t('validation.email'));
       } else {
         setErrorMessage('');
       }
     }
     if (validation === 'password') {
       if (value.length < 8) {
-        setErrorMessage('Password field cannot be less than 8 characters');
+        setErrorMessage(t('validation.passwordLength'));
         return;
       }
       if (!validatePassword(value)) {
-        setErrorMessage('Password should contain alphanumeric characters');
+        setErrorMessage(t('validation.passwordCharacter'));
       } else {
         setErrorMessage('');
       }
