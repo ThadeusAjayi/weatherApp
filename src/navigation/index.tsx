@@ -8,11 +8,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from './navigationHelpers';
 import Screens from '../modules';
 import colors from '../assets/colors';
+import {useTranslation} from 'react-i18next';
+import {LanguageProvider} from '../localization/useLanguage';
 
 const Tab = createBottomTabNavigator();
 const RootStack = createStackNavigator();
 
 export function BottomTabs() {
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -28,16 +31,16 @@ export function BottomTabs() {
       }}>
       <Tab.Screen
         options={{
-          headerTitle: 'Weather Dashboard',
-          title: 'Dasboard',
+          headerTitle: t('navigation.tabs.dashboard.headerTitle'),
+          title: t('navigation.tabs.dashboard.title'),
         }}
         name={ROUTES.WEATHERDASHBOARDNAVIGATOR}
         component={WeatherDashboardNavigator}
       />
       <Tab.Screen
         options={{
-          title: 'City Weather',
-          headerTitle: 'Search City Weather',
+          headerTitle: t('navigation.tabs.search.headerTitle'),
+          title: t('navigation.tabs.search.title'),
         }}
         name={ROUTES.WEATHERSEARCHNAVIGATOR}
         component={WeatherSearchNavigator}
@@ -47,28 +50,31 @@ export function BottomTabs() {
 }
 
 export default function RootNavigator() {
+  const {t} = useTranslation();
   return (
     <NavigationContainer ref={navigationRef}>
-      <RootStack.Navigator>
-        <RootStack.Screen
-          options={{headerShown: false}}
-          name={ROUTES.LOGIN}
-          component={Screens.login}
-        />
-        <RootStack.Screen
-          options={{headerShown: false}}
-          name={ROUTES.DASHBOARD}
-          component={BottomTabs}
-        />
-        <RootStack.Screen
-          name={ROUTES.WEATHERDETAILS}
-          component={Screens.weatherDetails}
-          options={{
-            headerLeftLabelVisible: false,
-            title: 'Weather Detail',
-          }}
-        />
-      </RootStack.Navigator>
+      <LanguageProvider>
+        <RootStack.Navigator>
+          <RootStack.Screen
+            options={{headerShown: false}}
+            name={ROUTES.LOGIN}
+            component={Screens.login}
+          />
+          <RootStack.Screen
+            options={{headerShown: false}}
+            name={ROUTES.DASHBOARD}
+            component={BottomTabs}
+          />
+          <RootStack.Screen
+            name={ROUTES.WEATHERDETAILS}
+            component={Screens.weatherDetails}
+            options={{
+              headerLeftLabelVisible: false,
+              title: t('navigation.weatherDetail'),
+            }}
+          />
+        </RootStack.Navigator>
+      </LanguageProvider>
     </NavigationContainer>
   );
 }

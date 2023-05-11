@@ -24,16 +24,20 @@ export default StyleSheet.create({
     marginBottom: 20,
     fontWeight: '400',
     fontSize: 16,
+    textAlign: 'left',
   },
   headerFont: {
     fontWeight: '700',
     fontSize: 20,
+    textAlign: 'left',
   },
   errorTextStyle: {
     color: colors.errorTextColor,
     marginBottom: 0,
-    left: 10,
+    start: 10,
+    end: 10,
     fontSize: 10,
+    textAlign: 'left',
   },
   bottomBorder: {
     borderBottomColor: colors.white,

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, View} from 'react-native';
-import {fetchCityWeather} from '../../redux/weatherSlice';
+import {fetchCityWeather} from '../../redux/weather/weatherSlice';
 import {useAppDispatch} from '../../redux/store';
 import CustomButton from '../../components/CustomButton';
 import {useTranslation} from 'react-i18next';
@@ -21,6 +21,7 @@ export default ({navigation}: Prop) => {
   const [city, setCity] = useState('');
   const {t} = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const {weatherSearch, weatherSearchStatus} = useSelector(
     (state: RootState) => state.weather,
   );
@@ -39,11 +40,13 @@ export default ({navigation}: Prop) => {
       Alert.alert(t('weather.failed', {city}));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weatherSearch, weatherSearchStatus, navigation]);
+  }, [weatherSearch, weatherSearchStatus]);
 
   return (
     <View style={globalstyles.backgroundStyle}>
       <CustomInput
+        validation="specialCharacter"
+        hasError={setHasError}
         props={{
           onChangeText: setCity,
           value: city,
@@ -54,7 +57,7 @@ export default ({navigation}: Prop) => {
         <ActivityIndicator color={colors.activeButton} />
       ) : (
         <CustomButton
-          disable={city.length < 2}
+          disable={hasError}
           title={t('weather.search')}
           onClick={() => dispatch(fetchCityWeather(city))}
         />

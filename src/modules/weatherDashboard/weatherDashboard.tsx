@@ -3,7 +3,7 @@ import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../../redux/store';
 import CustomText from '../../components/CustomText';
 import {NetworkInfo} from 'react-native-network-info';
-import {fetchDashboardWeather} from '../../redux/weatherSlice';
+import {fetchDashboardWeather} from '../../redux/weather/weatherSlice';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reducer';
 import WeatherItem from './components/weatherItem';
@@ -12,15 +12,22 @@ import globalstyles from '../../styles/globalstyles';
 import {formatDate} from '../../utils/timeFormat';
 import {ForecastDayType} from '../../redux/dataTypes';
 import {useTranslation} from 'react-i18next';
+import {
+  DirectionType,
+  useLanguageContext,
+} from '../../localization/useLanguage';
 
 const WeatherDashboardHeader = ({
   forecast,
+  direction,
 }: {
   forecast: ForecastDayType | undefined;
+  direction?: DirectionType;
 }) => {
   const {t} = useTranslation();
   return (
-    <View style={[globalstyles.bottomBorder, styles.headerWrapper]}>
+    <View
+      style={[globalstyles.bottomBorder, styles.headerWrapper, {direction}]}>
       <View style={styles.headerRow}>
         <CustomText style={[globalstyles.headerFont, styles.keys]}>
           {t('dashboard.header.date')}
@@ -46,6 +53,7 @@ const WeatherDashboardHeader = ({
 export default () => {
   const dispatch = useAppDispatch();
   const forecast = useSelector((state: RootState) => state.weather);
+  const {ltrRlt} = useLanguageContext();
 
   const ip = React.useMemo(async () => {
     const res = await NetworkInfo.getIPAddress();
@@ -60,10 +68,14 @@ export default () => {
       stickyHeaderIndices={[0]}
       ListHeaderComponent={
         forecast?.weatherDashboardStatus === 'succeeded' ? (
-          <WeatherDashboardHeader forecast={forecast.weatherDashboard} />
+          <WeatherDashboardHeader
+            forecast={forecast.weatherDashboard}
+            direction={ltrRlt}
+          />
         ) : null
       }
       data={forecast?.weatherDashboard?.hour}
+      style={{direction: ltrRlt}}
       renderItem={({item}) => <WeatherItem {...item} />}
       ListFooterComponent={
         forecast?.weatherDashboardStatus === 'loading' ? (

@@ -7,11 +7,11 @@ interface Validate {
   errorMessage: string;
 }
 
-export type Validation = 'email' | 'password' | 'invalid';
+export type Validation = 'email' | 'password' | 'specialCharacter';
 
 export default function (
   value: string,
-  validation: 'email' | 'password' | 'invalid' | undefined,
+  validation: 'email' | 'password' | 'specialCharacter' | undefined,
 ): Validate {
   const [errorMessage, setErrorMessage] = useState('');
   const {t} = useTranslation();
@@ -35,10 +35,17 @@ export default function (
         setErrorMessage('');
       }
     }
-    if (validation === 'invalid') {
-      setErrorMessage('Invalid characters not allowed');
+    if (validation === 'specialCharacter') {
+      if (
+        /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(value) ||
+        value.length < 2
+      ) {
+        setErrorMessage(t('validation.invalidCharacter'));
+        return;
+      }
+      setErrorMessage('');
     }
-  }, [value, validation]);
+  }, [value, validation, t]);
 
   return {errorMessage};
 }

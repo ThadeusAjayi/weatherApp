@@ -1,5 +1,6 @@
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
-import {CityWeatherType, WeatherForecastType} from './dataTypes';
+import {CityWeatherType, UserType, WeatherForecastType} from './dataTypes';
+import {login} from '../data/mocklogin';
 
 // axios.defaults.baseURL = 'http://api.weatherapi.com/v1/current.json';
 
@@ -30,5 +31,9 @@ export const DashboardWeather = async (
     `&q=${q}&days=1&aqi=no&alerts=no`,
     weatherType,
   );
+
+export const loginService = async (data: {email: string}) => {
+  return await login<UserType>(data);
+};
 
 export default instance;

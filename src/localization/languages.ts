@@ -1,6 +1,19 @@
 export default {
   en: {
     translation: {
+      navigation: {
+        weatherDetail: 'Weather Detail',
+        tabs: {
+          dashboard: {
+            headerTitle: 'Weather Dashboard',
+            title: 'Dashboard',
+          },
+          search: {
+            headerTitle: 'Search City Weather',
+            title: 'City Weather',
+          },
+        },
+      },
       login: {
         welcome: 'Welcome to the Weather App',
         emailPlaceholder: 'Email',
@@ -11,6 +24,7 @@ export default {
         email: 'Enter a valid email',
         passwordLength: 'Password field cannot be less than 8 characters',
         passwordCharacter: 'Password should contain alphanumeric characters',
+        invalidCharacter: 'Invalid characters not allowed',
       },
       weather: {
         search: 'search',
@@ -28,6 +42,19 @@ export default {
   },
   ar: {
     translation: {
+      navigation: {
+        weatherDetail: 'تفاصيل الطقس',
+        tabs: {
+          dashboard: {
+            headerTitle: 'لوحة الطقس',
+            title: 'لوحة القيادة',
+          },
+          search: {
+            headerTitle: 'بحث مدينة الطقس',
+            title: 'طقس المدينة',
+          },
+        },
+      },
       login: {
         welcome: 'مرحبًا بك في تطبيق الطقس',
         emailPlaceholder: 'بريد إلكتروني',
@@ -38,6 +65,7 @@ export default {
         email: 'أدخل بريد إلكتروني متاح',
         passwordLength: 'لا يمكن أن يكون حقل كلمة المرور أقل من 8 أحرف',
         passwordCharacter: 'يجب أن تحتوي كلمة المرور على أحرف أبجدية رقمية',
+        invalidCharacter: 'الأحرف غير الصالحة غير مسموح بها',
       },
       weather: {
         search: 'يبحث',

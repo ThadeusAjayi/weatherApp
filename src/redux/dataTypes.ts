@@ -93,3 +93,7 @@ export type WeatherForecastType = {
     forecastday: Array<ForecastDayType>;
   };
 };
+
+export type UserType = {
+  email: string;
+};

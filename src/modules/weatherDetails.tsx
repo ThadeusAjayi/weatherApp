@@ -6,7 +6,8 @@ import {RouteProp} from '@react-navigation/native';
 import {CityWeatherType} from '../redux/dataTypes';
 import {formatTime} from '../utils/timeFormat';
 import {useAppDispatch} from '../redux/store';
-import {setWeather} from '../redux/weatherSlice';
+import {setWeather} from '../redux/weather/weatherSlice';
+import {useLanguageContext} from '../localization/useLanguage';
 
 interface Prop {
   route: RouteProp<
@@ -20,6 +21,7 @@ interface Prop {
 export default ({route}: Prop) => {
   const {location, current} = route.params;
   const dispatch = useAppDispatch();
+  const {ltrRlt} = useLanguageContext();
   useEffect(() => {
     return () => {
       dispatch(setWeather(undefined));
@@ -27,7 +29,7 @@ export default ({route}: Prop) => {
   }, [dispatch]);
   return (
     <SafeAreaView style={globalstyles.safeAreaViewStyle}>
-      <View style={globalstyles.backgroundStyle}>
+      <View style={[globalstyles.backgroundStyle, {direction: ltrRlt}]}>
         <CustomText style={globalstyles.headerFont}>{location.name}</CustomText>
         <CustomText>{formatTime(location.localtime_epoch)}</CustomText>
         <View style={styles.iconRow}>
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
   tempRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    direction: 'ltr',
   },
   temp: {
     fontSize: 80,

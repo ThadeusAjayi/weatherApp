@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {CityWeather, DashboardWeather} from './axiosClient';
-import {CityWeatherType, ForecastDayType} from './dataTypes';
+import {CityWeather, DashboardWeather} from '../axiosClient';
+import {CityWeatherType, ForecastDayType} from '../dataTypes';
 
 export const fetchCityWeather = createAsyncThunk(
   'weather/fetchCityWeather',
