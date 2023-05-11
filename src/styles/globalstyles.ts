@@ -35,4 +35,9 @@ export default StyleSheet.create({
     left: 10,
     fontSize: 10,
   },
+  bottomBorder: {
+    borderBottomColor: colors.white,
+    borderBottomWidth: 2,
+    paddingVertical: 10,
+  },
 });

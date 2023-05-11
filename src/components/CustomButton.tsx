@@ -4,9 +4,17 @@ import colors from '../assets/colors';
 
 type Props = {
   title: string;
+  disable?: boolean;
   onClick: () => void;
 };
 
-export default ({title, onClick}: Props) => {
-  return <Button title={title} onPress={onClick} color={colors.activeButton} />;
+export default ({title, onClick, disable}: Props) => {
+  return (
+    <Button
+      title={title}
+      disabled={disable}
+      onPress={onClick}
+      color={colors.activeButton}
+    />
+  );
 };

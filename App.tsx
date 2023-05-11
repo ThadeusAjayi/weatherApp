@@ -8,9 +8,15 @@
 import React from 'react';
 import RootNavigator from './src/navigation';
 import './src/localization/i18n';
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 
 function App(): JSX.Element {
-  return <RootNavigator />;
+  return (
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
+  );
 }
 
 export default App;

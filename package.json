@@ -16,13 +16,18 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "i18next": "^22.4.15",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-i18next": "^12.2.2",
     "react-native": "0.71.7",
+    "react-native-device-info": "^10.6.0",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.9.0",
+    "react-native-network-info": "^5.2.1",
     "react-native-safe-area-context": "^4.5.2",
     "react-native-screens": "^3.20.0",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -33,6 +38,7 @@
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
     "@types/react-test-renderer": "^18.0.0",
+    "@types/redux-logger": "^3.0.9",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
     "jest": "^29.2.1",

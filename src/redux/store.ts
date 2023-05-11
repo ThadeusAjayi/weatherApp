@@ -1,6 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit';
-import weather from './weatherSlice';
+import {useDispatch} from 'react-redux';
+import logger from 'redux-logger';
+import rootReducer from './reducer';
 
-export default configureStore({
-  reducer: {weather},
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
 });
+
+type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+
+export default store;
