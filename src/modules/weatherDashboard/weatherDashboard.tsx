@@ -9,7 +9,7 @@ import WeatherItem from './components/weatherItem';
 import colors from '../../assets/colors';
 import globalstyles from '../../styles/globalstyles';
 import {formatDate} from '../../utils/timeFormat';
-import {ForecastDayType} from '../../redux/dataTypes';
+import {ForecastDayType, LocationType} from '../../redux/dataTypes';
 import {useTranslation} from 'react-i18next';
 import {
   DirectionType,
@@ -22,9 +22,11 @@ import Geolocation from 'react-native-geolocation-service';
 const WeatherDashboardHeader = ({
   forecast,
   direction,
+  location,
 }: {
   forecast: ForecastDayType | undefined;
-  direction?: DirectionType;
+  direction: DirectionType;
+  location?: LocationType;
 }) => {
   const {t} = useTranslation();
   return (
@@ -32,21 +34,35 @@ const WeatherDashboardHeader = ({
       style={[globalstyles.bottomBorder, styles.headerWrapper, {direction}]}>
       <View style={styles.headerRow}>
         <CustomText style={[globalstyles.headerFont, styles.keys]}>
+          {t('dashboard.header.location')}
+        </CustomText>
+        <CustomText style={styles.keyValue} numberOfLines={2}>{`${
+          location!.name
+        }, ${location!.country}`}</CustomText>
+      </View>
+      <View style={styles.headerRow}>
+        <CustomText style={[globalstyles.headerFont, styles.keys]}>
           {t('dashboard.header.date')}
         </CustomText>
-        <CustomText>{formatDate(forecast!.date_epoch)}</CustomText>
+        <CustomText style={styles.keyValue} numberOfLines={2}>
+          {formatDate(forecast!.date_epoch)}
+        </CustomText>
       </View>
       <View style={styles.headerRow}>
         <CustomText style={[globalstyles.headerFont, styles.keys]}>
           {t('dashboard.header.sunrise')}
         </CustomText>
-        <CustomText>{forecast!.astro.sunrise}</CustomText>
+        <CustomText style={styles.keyValue} numberOfLines={2}>
+          {forecast!.astro.sunrise}
+        </CustomText>
       </View>
       <View style={styles.headerRow}>
         <CustomText style={[globalstyles.headerFont, styles.keys]}>
           {t('dashboard.header.sunset')}
         </CustomText>
-        <CustomText>{forecast!.astro.sunset}</CustomText>
+        <CustomText style={styles.keyValue} numberOfLines={2}>
+          {forecast!.astro.sunset}
+        </CustomText>
       </View>
     </View>
   );
@@ -81,12 +97,13 @@ export default () => {
         ListHeaderComponent={
           forecast?.weatherDashboardStatus === 'succeeded' ? (
             <WeatherDashboardHeader
-              forecast={forecast.weatherDashboard}
+              forecast={forecast.weatherDashboard?.forecast.forecastday[0]}
+              location={forecast.weatherDashboard?.location}
               direction={ltrRlt}
             />
           ) : null
         }
-        data={forecast?.weatherDashboard?.hour}
+        data={forecast?.weatherDashboard?.forecast?.forecastday?.[0]?.hour}
         style={{direction: ltrRlt}}
         renderItem={({item}) => <WeatherItem {...item} />}
         ListFooterComponent={
@@ -113,8 +130,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     alignItems: 'center',
+    flex: 1,
   },
-  keys: {fontSize: 16},
+  keys: {fontSize: 16, flex: 0.8},
+  keyValue: {flex: 1.5, textAlign: 'right'},
   loader: {
     marginTop: 20,
   },

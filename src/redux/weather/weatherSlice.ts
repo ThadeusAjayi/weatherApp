@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {CityWeather, DashboardWeather} from '../axiosClient';
-import {CityWeatherType, ForecastDayType} from '../dataTypes';
+import {CityWeatherType, WeatherForecastType} from '../dataTypes';
 
 export const fetchCityWeather = createAsyncThunk(
   'weather/fetchCityWeather',
@@ -14,14 +14,14 @@ export const fetchDashboardWeather = createAsyncThunk(
   'weather/fetchDashboardWeather',
   async (city: string) => {
     const response = await DashboardWeather(city);
-    return response.data.forecast.forecastday[0];
+    return response.data;
   },
 );
 export interface WeatherState {
   weatherSearch: CityWeatherType | undefined;
   weatherSearchStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   weatherSearchError: any;
-  weatherDashboard: ForecastDayType | undefined;
+  weatherDashboard: WeatherForecastType | undefined;
   weatherDashboardStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
   weatherDashboardError: any;
 }

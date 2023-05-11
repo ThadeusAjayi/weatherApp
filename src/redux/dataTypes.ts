@@ -1,14 +1,5 @@
 export type CityWeatherType = {
-  location: {
-    name: string;
-    region: string;
-    country: string;
-    lat: number;
-    lon: number;
-    tz_id: string;
-    localtime_epoch: number;
-    localtime: string;
-  };
+  location: LocationType;
   current: {
     last_updated_epoch: number;
     last_updated: string;
@@ -89,6 +80,7 @@ export type ForecastDayType = {
 };
 
 export type WeatherForecastType = {
+  location: LocationType;
   forecast: {
     forecastday: Array<ForecastDayType>;
   };
@@ -96,4 +88,15 @@ export type WeatherForecastType = {
 
 export type UserType = {
   email: string;
+};
+
+export type LocationType = {
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+  tz_id: string;
+  localtime_epoch: number;
+  localtime: string;
 };
