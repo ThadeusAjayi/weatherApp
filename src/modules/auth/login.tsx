@@ -6,7 +6,6 @@ import CustomButton from '../../components/CustomButton';
 import CustomText from '../../components/CustomText';
 import {useTranslation} from 'react-i18next';
 import {navigationRef} from '../../navigation/navigationHelpers';
-import routes from '../../navigation/routes';
 import {login} from '../../redux/auth/authSlice';
 import {useAppDispatch} from '../../redux/store';
 import {useSelector} from 'react-redux';
@@ -29,7 +28,7 @@ export default () => {
       navigationRef.current?.dispatch(
         CommonActions.reset({
           index: 1,
-          routes: [{name: routes.DASHBOARD}],
+          routes: [{name: 'DASHBOARD'}],
         }),
       );
     }

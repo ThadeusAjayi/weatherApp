@@ -3,16 +3,15 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import WeatherDashboardNavigator from './weatherDashboardNavigator';
 import WeatherSearchNavigator from './weatherSearchNavigator';
 import {createStackNavigator} from '@react-navigation/stack';
-import ROUTES from './routes';
 import {NavigationContainer} from '@react-navigation/native';
-import {navigationRef} from './navigationHelpers';
+import {RootStackParamList, navigationRef} from './navigationHelpers';
 import Screens from '../modules';
 import colors from '../assets/colors';
 import {useTranslation} from 'react-i18next';
 import {LanguageProvider} from '../localization/useLanguage';
 
 const Tab = createBottomTabNavigator();
-const RootStack = createStackNavigator();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 export function BottomTabs() {
   const {t} = useTranslation();
@@ -34,7 +33,7 @@ export function BottomTabs() {
           headerTitle: t('navigation.tabs.dashboard.headerTitle'),
           title: t('navigation.tabs.dashboard.title'),
         }}
-        name={ROUTES.WEATHERDASHBOARDNAVIGATOR}
+        name={'WEATHERDASHBOARDNAVIGATOR'}
         component={WeatherDashboardNavigator}
       />
       <Tab.Screen
@@ -42,7 +41,7 @@ export function BottomTabs() {
           headerTitle: t('navigation.tabs.search.headerTitle'),
           title: t('navigation.tabs.search.title'),
         }}
-        name={ROUTES.WEATHERSEARCHNAVIGATOR}
+        name={'WEATHERSEARCHNAVIGATOR'}
         component={WeatherSearchNavigator}
       />
     </Tab.Navigator>
@@ -57,18 +56,18 @@ export default function RootNavigator() {
         <RootStack.Navigator>
           <RootStack.Screen
             options={{headerShown: false}}
-            name={ROUTES.LOGIN}
+            name={'LOGIN'}
             component={Screens.login}
           />
           <RootStack.Screen
             options={{
               headerShown: false,
             }}
-            name={ROUTES.DASHBOARD}
+            name={'DASHBOARD'}
             component={BottomTabs}
           />
           <RootStack.Screen
-            name={ROUTES.WEATHERDETAILS}
+            name={'WEATHERDETAILS'}
             component={Screens.weatherDetails}
             options={{
               headerLeftLabelVisible: false,

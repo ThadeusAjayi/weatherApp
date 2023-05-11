@@ -2,23 +2,16 @@ import React, {useEffect} from 'react';
 import {Image, SafeAreaView, StyleSheet, View} from 'react-native';
 import CustomText from '../components/CustomText';
 import globalstyles from '../styles/globalstyles';
-import {RouteProp} from '@react-navigation/native';
-import {CityWeatherType} from '../redux/dataTypes';
 import {formatTime} from '../utils/timeFormat';
 import {useAppDispatch} from '../redux/store';
 import {setWeather} from '../redux/weather/weatherSlice';
 import {useLanguageContext} from '../localization/useLanguage';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/navigationHelpers';
 
-interface Prop {
-  route: RouteProp<
-    {
-      WEATHERDETAILS: CityWeatherType;
-    },
-    'WEATHERDETAILS'
-  >;
-}
+type Props = StackScreenProps<RootStackParamList, 'WEATHERDETAILS'>;
 
-export default ({route}: Prop) => {
+export default ({route}: Props) => {
   const {location, current} = route.params;
   const dispatch = useAppDispatch();
   const {ltrRlt} = useLanguageContext();

@@ -1,15 +1,15 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ROUTES from './routes';
 import Screens from '../modules';
+import {RootStackParamList} from './navigationHelpers';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function WeatherDashboardNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name={ROUTES.WEATHERDASHBOARD}
+        name={'WEATHERDASHBOARD'}
         options={{headerTitle: 'Weather Dashboard'}}
         component={Screens.weatherDashboard}
       />

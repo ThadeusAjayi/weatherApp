@@ -8,16 +8,14 @@ import CustomInput from '../../components/CustomInput';
 import globalstyles from '../../styles/globalstyles';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reducer';
-import {NavigationProp} from '@react-navigation/native';
-import routes from '../../navigation/routes';
 import colors from '../../assets/colors';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/navigationHelpers';
 
-interface Prop {
-  navigation: NavigationProp<any, any>;
-}
+type Props = StackScreenProps<RootStackParamList, 'WEATHERSEARCH'>;
 
-export default ({navigation}: Prop) => {
+export default ({navigation}: Props) => {
   const dispatch = useAppDispatch();
   const [city, setCity] = useState('');
   const {t} = useTranslation();
@@ -31,7 +29,7 @@ export default ({navigation}: Prop) => {
     if (weatherSearch && weatherSearchStatus === 'succeeded') {
       setCity('');
       setIsLoading(false);
-      navigation.navigate(routes.WEATHERDETAILS, weatherSearch);
+      navigation.navigate('WEATHERDETAILS', weatherSearch);
     }
     if (weatherSearchStatus === 'loading') {
       setIsLoading(true);
