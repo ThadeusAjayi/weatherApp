@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../../redux/store';
 import CustomText from '../../components/CustomText';
-import {NetworkInfo} from 'react-native-network-info';
 import {fetchDashboardWeather} from '../../redux/weather/weatherSlice';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reducer';
@@ -17,6 +16,8 @@ import {
   useLanguageContext,
 } from '../../localization/useLanguage';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
+import {getCurrentLocation} from '../../utils/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 
 const WeatherDashboardHeader = ({
   forecast,
@@ -55,15 +56,21 @@ export default () => {
   const dispatch = useAppDispatch();
   const forecast = useSelector((state: RootState) => state.weather);
   const {ltrRlt} = useLanguageContext();
+  const [position, setPosition] = useState<Geolocation.GeoPosition>();
 
-  const ip = React.useMemo(async () => {
-    const res = await NetworkInfo.getIPAddress();
-    return res;
+  useEffect(() => {
+    getCurrentLocation(setPosition);
   }, []);
 
   useEffect(() => {
-    dispatch(fetchDashboardWeather('lagos'));
-  }, [dispatch, ip]);
+    if (position?.coords) {
+      dispatch(
+        fetchDashboardWeather(
+          `${position?.coords.latitude},${position?.coords.longitude}`,
+        ),
+      );
+    }
+  }, [dispatch, position]);
   return (
     <View>
       <View style={styles.switcher}>
