@@ -15,6 +15,7 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     borderColor: colors.textInputColor,
     borderWidth: 1,
+    color: colors.primaryTextColor,
   },
   bottomSpacing: {
     marginBottom: 20,

@@ -93,7 +93,10 @@ export default () => {
         <LanguageSwitcher />
       </View>
       <FlatList
-        stickyHeaderIndices={[0]}
+        stickyHeaderIndices={
+          forecast?.weatherDashboardStatus === 'succeeded' ? [0] : undefined
+        }
+        removeClippedSubviews={false}
         ListHeaderComponent={
           forecast?.weatherDashboardStatus === 'succeeded' ? (
             <WeatherDashboardHeader
@@ -105,6 +108,7 @@ export default () => {
         }
         data={forecast?.weatherDashboard?.forecast?.forecastday?.[0]?.hour}
         style={{direction: ltrRlt}}
+        contentContainerStyle={styles.containerStyle}
         renderItem={({item}) => <WeatherItem {...item} />}
         ListFooterComponent={
           forecast?.weatherDashboardStatus === 'loading' ? (
@@ -137,4 +141,5 @@ const styles = StyleSheet.create({
   loader: {
     marginTop: 20,
   },
+  containerStyle: {paddingBottom: 20},
 });
