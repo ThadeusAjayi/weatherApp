@@ -61,7 +61,9 @@ export default function RootNavigator() {
             component={Screens.login}
           />
           <RootStack.Screen
-            options={{headerShown: false}}
+            options={{
+              headerShown: false,
+            }}
             name={ROUTES.DASHBOARD}
             component={BottomTabs}
           />

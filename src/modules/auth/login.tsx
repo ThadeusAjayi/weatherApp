@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  StyleSheet,
-  Switch,
-  View,
-} from 'react-native';
+import {ActivityIndicator, SafeAreaView, StyleSheet, View} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import globalstyles from '../../styles/globalstyles';
 import CustomButton from '../../components/CustomButton';
@@ -13,13 +7,13 @@ import CustomText from '../../components/CustomText';
 import {useTranslation} from 'react-i18next';
 import {navigationRef} from '../../navigation/navigationHelpers';
 import routes from '../../navigation/routes';
-import {useLanguageContext} from '../../localization/useLanguage';
 import {login} from '../../redux/auth/authSlice';
 import {useAppDispatch} from '../../redux/store';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reducer';
 import {CommonActions} from '@react-navigation/native';
 import colors from '../../assets/colors';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 
 export default () => {
   const [email, setEmail] = useState('');
@@ -29,7 +23,6 @@ export default () => {
   const {t} = useTranslation();
   const dispatch = useAppDispatch();
   const {auth, authStatus} = useSelector((state: RootState) => state.auth);
-  const {setLanguage, language} = useLanguageContext();
 
   useEffect(() => {
     if (auth?.email) {
@@ -44,17 +37,7 @@ export default () => {
 
   return (
     <SafeAreaView style={globalstyles.safeAreaViewStyle}>
-      <View style={styles.switchWrap}>
-        <CustomText style={styles.language}>EN</CustomText>
-        <Switch
-          value={language !== 'en'}
-          onValueChange={() => {
-            setLanguage(language === 'en' ? 'ar' : 'en');
-          }}
-          style={styles.switch}
-        />
-        <CustomText style={styles.language}>في</CustomText>
-      </View>
+      <LanguageSwitcher switchWrap={styles.switchWrap} />
       <View style={[globalstyles.backgroundStyle, styles.centerLayout]}>
         <CustomText style={[globalstyles.headerFont, styles.welcomeText]}>
           {t('login.welcome')}

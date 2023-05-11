@@ -11,6 +11,7 @@ import {RootState} from '../../redux/reducer';
 import {NavigationProp} from '@react-navigation/native';
 import routes from '../../navigation/routes';
 import colors from '../../assets/colors';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 
 interface Prop {
   navigation: NavigationProp<any, any>;
@@ -44,6 +45,7 @@ export default ({navigation}: Prop) => {
 
   return (
     <View style={globalstyles.backgroundStyle}>
+      <LanguageSwitcher />
       <CustomInput
         validation="specialCharacter"
         hasError={setHasError}

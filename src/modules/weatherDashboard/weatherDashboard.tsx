@@ -16,6 +16,7 @@ import {
   DirectionType,
   useLanguageContext,
 } from '../../localization/useLanguage';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
 
 const WeatherDashboardHeader = ({
   forecast,
@@ -64,28 +65,33 @@ export default () => {
     dispatch(fetchDashboardWeather('lagos'));
   }, [dispatch, ip]);
   return (
-    <FlatList
-      stickyHeaderIndices={[0]}
-      ListHeaderComponent={
-        forecast?.weatherDashboardStatus === 'succeeded' ? (
-          <WeatherDashboardHeader
-            forecast={forecast.weatherDashboard}
-            direction={ltrRlt}
-          />
-        ) : null
-      }
-      data={forecast?.weatherDashboard?.hour}
-      style={{direction: ltrRlt}}
-      renderItem={({item}) => <WeatherItem {...item} />}
-      ListFooterComponent={
-        forecast?.weatherDashboardStatus === 'loading' ? (
-          <ActivityIndicator
-            color={colors.secondaryTextColor}
-            style={styles.loader}
-          />
-        ) : null
-      }
-    />
+    <View>
+      <View style={styles.switcher}>
+        <LanguageSwitcher />
+      </View>
+      <FlatList
+        stickyHeaderIndices={[0]}
+        ListHeaderComponent={
+          forecast?.weatherDashboardStatus === 'succeeded' ? (
+            <WeatherDashboardHeader
+              forecast={forecast.weatherDashboard}
+              direction={ltrRlt}
+            />
+          ) : null
+        }
+        data={forecast?.weatherDashboard?.hour}
+        style={{direction: ltrRlt}}
+        renderItem={({item}) => <WeatherItem {...item} />}
+        ListFooterComponent={
+          forecast?.weatherDashboardStatus === 'loading' ? (
+            <ActivityIndicator
+              color={colors.secondaryTextColor}
+              style={styles.loader}
+            />
+          ) : null
+        }
+      />
+    </View>
   );
 };
 
@@ -94,6 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingBottom: 0,
   },
+  switcher: {paddingHorizontal: 20},
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
